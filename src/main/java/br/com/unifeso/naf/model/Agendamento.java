@@ -1,28 +1,29 @@
 package br.com.unifeso.naf.model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
 public class Agendamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long agendamentoId;
 
     private LocalDateTime dataHora;
     private Boolean stAtivo;
 
-    @ManyToOne // Relacionamento muitos-para-um com Contato
-    @JoinColumn(name = "contato_id") // Define a chave estrangeira para a tabela Contato
+    @ManyToOne
+    @JoinColumn(name = "contatoId")
     private Contato contato;
 
-    // Getters e Setters
-    public Long getId() {
-        return id;
+
+    public Long getAgendamentoId() {
+        return agendamentoId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAgendamentoId(Long agendamentoId) {
+        this.agendamentoId = agendamentoId;
     }
 
     public LocalDateTime getDataHora() {

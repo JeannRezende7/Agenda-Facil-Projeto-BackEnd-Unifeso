@@ -17,6 +17,7 @@ public class ContatoController {
     }
 
     @GetMapping
+
     public List<Contato> listar() {
         return service.listarTodos();
     }
@@ -25,6 +26,7 @@ public class ContatoController {
     public Contato criar(@RequestBody Contato contato) {
         return service.salvar(contato);
     }
+
 
     @PutMapping("/{id}")
     public Contato atualizar(@PathVariable Long id, @RequestBody Contato contato) {

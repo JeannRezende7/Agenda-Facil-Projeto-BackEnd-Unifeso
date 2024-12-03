@@ -9,24 +9,23 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-    public class AgendamentoService {
+public class AgendamentoService {
 
-        @Autowired
-        private AgendamentoRepository agendamentoRepository;
+    @Autowired
+    private AgendamentoRepository agendamentoRepository;
 
-        // Método para criar agendamento
-        public Agendamento criarAgendamento(Agendamento agendamento) {
-            return agendamentoRepository.save(agendamento);
-        }
 
-        // Método para listar agendamentos
-        public List<Agendamento> listarAgendamentos() {
-            return agendamentoRepository.findAll();
-        }
-
-        public Agendamento buscarAgendamento(Long id) {
-            Optional<Agendamento> agendamento = agendamentoRepository.findById(id);
-            return agendamento.orElse(null);  // Retorna null se não encontrado
-        }
+    public Agendamento criarAgendamento(Agendamento agendamento) {
+        return agendamentoRepository.save(agendamento);
     }
+
+    public List<Agendamento> listarAgendamentos() {
+        return agendamentoRepository.findAll();
+    }
+
+    public Agendamento buscarAgendamento(Long id) {
+        Optional<Agendamento> agendamento = agendamentoRepository.findById(id);
+        return agendamento.orElse(null);  // Retorna null se não encontrado
+    }
+}
 

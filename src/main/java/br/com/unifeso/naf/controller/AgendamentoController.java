@@ -1,9 +1,12 @@
 package br.com.unifeso.naf.controller;
 
 import br.com.unifeso.naf.model.Agendamento;
+import br.com.unifeso.naf.model.Contato;
 import br.com.unifeso.naf.service.AgendamentoService;
+import br.com.unifeso.naf.service.ContatoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -13,12 +16,21 @@ public class AgendamentoController {
 
     @Autowired
     private AgendamentoService agendamentoService;
+    @Autowired
+    private ContatoService contatoService;
 
-    // Método POST para criar agendamento
     @PostMapping
     public Agendamento criarAgendamento(@RequestBody Agendamento agendamento) {
-        // Log para verificar os dados recebidos
-        System.out.println("Agendamento recebido: " + agendamento);
+        // Buscar o Contato pelo ID
+        Long contatoId = agendamento.getContato().getContatoId();
+        Contato contato = contatoService.buscarContato(contatoId);  // Método para buscar o Contato
+
+        if (contato == null) {
+            throw new RuntimeException("Contato não encontrado!");
+        }
+
+        // Associa o Contato ao Agendamento
+        agendamento.setContato(contato);
 
         // Criação do agendamento no banco de dados
         Agendamento agendamentoCriado = agendamentoService.criarAgendamento(agendamento);
@@ -27,13 +39,12 @@ public class AgendamentoController {
         return agendamentoCriado;
     }
 
-    // Método GET para listar todos os agendamentos
+
     @GetMapping
     public List<Agendamento> listarAgendamentos() {
         return agendamentoService.listarAgendamentos();
     }
 
-    // Método GET para buscar um agendamento por ID
     @GetMapping("/{id}")
     public Agendamento buscarAgendamento(@PathVariable Long id) {
         return agendamentoService.buscarAgendamento(id);

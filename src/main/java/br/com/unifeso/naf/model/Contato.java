@@ -1,25 +1,23 @@
 package br.com.unifeso.naf.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Contato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "contatoId")
+    private Long contatoId;
     private String nome;
     private String telefone;
     private String email;
 
-    public Long getId() {
-        return id;
+    public Long getContatoId() {
+        return contatoId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setContatoId(Long contatoId) {
+        this.contatoId = contatoId;
     }
 
     public String getNome() {

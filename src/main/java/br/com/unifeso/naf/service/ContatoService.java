@@ -11,8 +11,13 @@ public class ContatoService {
 
     private final ContatoRepository repository;
 
+
     public ContatoService(ContatoRepository repository) {
         this.repository = repository;
+    }
+
+    public Contato buscarContato(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     public List<Contato> listarTodos() {
