@@ -9,14 +9,11 @@ public class Agendamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long agendamentoId;
-
     private LocalDateTime dataHora;
     private Boolean stAtivo;
-
     @ManyToOne
     @JoinColumn(name = "contatoId")
     private Contato contato;
-
 
     public Long getAgendamentoId() {
         return agendamentoId;

@@ -21,7 +21,6 @@ public class AgendamentoController {
 
     @PostMapping
     public Agendamento criarAgendamento(@RequestBody Agendamento agendamento) {
-        // Buscar o Contato pelo ID
         Long contatoId = agendamento.getContato().getContatoId();
         Contato contato = contatoService.buscarContato(contatoId);  // Método para buscar o Contato
 
@@ -29,16 +28,12 @@ public class AgendamentoController {
             throw new RuntimeException("Contato não encontrado!");
         }
 
-        // Associa o Contato ao Agendamento
         agendamento.setContato(contato);
 
-        // Criação do agendamento no banco de dados
         Agendamento agendamentoCriado = agendamentoService.criarAgendamento(agendamento);
 
-        // Retorna o agendamento criado com o contato associado
         return agendamentoCriado;
     }
-
 
     @GetMapping
     public List<Agendamento> listarAgendamentos() {
@@ -48,5 +43,24 @@ public class AgendamentoController {
     @GetMapping("/{id}")
     public Agendamento buscarAgendamento(@PathVariable Long id) {
         return agendamentoService.buscarAgendamento(id);
+    }
+
+    @PutMapping("/{id}")
+    public Agendamento atualizar(@PathVariable Long id, @RequestBody Agendamento agendamento) {
+        Long contatoId = agendamento.getContato().getContatoId();
+        Contato contato = contatoService.buscarContato(contatoId);
+
+        if (contato == null) {
+            throw new RuntimeException("Contato não encontrado!");
+        }
+
+        agendamento.setContato(contato);
+
+        return agendamentoService.atualizar(id, agendamento);
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        agendamentoService.excluir(id);
     }
 }
